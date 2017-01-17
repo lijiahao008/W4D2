@@ -19,6 +19,10 @@ class Cat < ActiveRecord::Base
   validates :color, presence: true, inclusion: { :in => COLORS }
   validates :sex, presence: true, inclusion: {in: ["M", "F"]}
 
+  has_many :cat_rental_requests,
+    -> { order(:start_date) },
+    dependent: :destroy
+
   def age
     ((Date.current - birth_date) / 360).to_i
   end

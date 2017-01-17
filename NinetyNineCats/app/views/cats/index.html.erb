@@ -1,7 +1,9 @@
 <h1>All Cats</h1>
 
   <% @cats.each do |cat| %>
+    <br>
     <%= cat.name %>
     <br>
-    <%= link_to "View cat's profile", cat %>
+    <%= link_to "View #{cat.name}'s profile", cat %>
+
   <% end %>

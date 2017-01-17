@@ -5,7 +5,7 @@ class CatsController < ApplicationController
   end
 
   def show
-    @cat = Cat.find(params[:id])
+    @cat = Cat.includes(:cat_rental_requests).find(params[:id])
     render :show
   end
 
@@ -16,6 +16,7 @@ class CatsController < ApplicationController
 
   def create
     @cat = Cat.new(cat_params)
+    @cat.name = @cat.name.capitalize
 
     if @cat.save
       redirect_to cat_url(@cat)

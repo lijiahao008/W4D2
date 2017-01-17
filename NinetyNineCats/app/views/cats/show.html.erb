@@ -25,3 +25,34 @@
     </tr>
 
   </table>
+
+<h1><%= @cat.name %>'s Rental Requests</h1>
+
+  <table>
+    <% @cat.cat_rental_requests.each do |request| %>
+      <tr>
+        <td>Request ID: <%= request.id %> </td>
+      </tr>
+
+      <tr>
+        <td>Start Date: <%= request.start_date %></td>
+      </tr>
+
+      <tr>
+        <td>End Date: <%= request.end_date %></td>
+      </tr>
+
+      <tr>
+        <td>Status: <%= request.status %> <br><br> </td>
+      </tr>
+
+      <tr>
+        <% if request.status == "PENDING" %>
+        <td>
+          <a href="<%= approve_cat_rental_request_url(request.id)%>">Approve</a>
+          <a href="<%= deny_cat_rental_request_url(request.id)%>">Deny</a>
+        </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
