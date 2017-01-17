@@ -19,6 +19,7 @@ class CatRentalRequest < ActiveRecord::Base
   end
 
   def overlapping_approved_requests
+    
     overlapping_approved_requests = overlapping_requests.select do |request|
       request.status == "APPROVED"
     end
@@ -30,12 +31,13 @@ class CatRentalRequest < ActiveRecord::Base
 
   def approve!
     CatRentalRequest.transaction do
-      self.status = "APPROVED"
-      self.save!
 
       overlapping_pending_requests.each do |request|
         request.deny!
       end
+      self.status = "APPROVED"
+      self.save!
+
     end
   end
 
@@ -46,6 +48,7 @@ class CatRentalRequest < ActiveRecord::Base
   end
 
   def deny!
+    # debugger
     self.status =  "DENIED"
     self.save!
   end
